@@ -39,5 +39,9 @@ class Database {
         return $stmt;
     }
 
+    public function lastInsertId(): int {
+        return $this->pdo->lastInsertId();
+    }
+
 }
 
