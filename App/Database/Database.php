@@ -9,7 +9,7 @@ class Database {
 
     public $pdo;
 
-    public function __construct(string $db, string $username, string $password, string $host = '127.0.0.1', int $port = 3306, array $options = []) {
+    public function __construct(string $db, string $username, string $password, string $host = 'localhost', int $port = 3306, array $options = []) {
         $default_options = [
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES => false,
@@ -17,8 +17,8 @@ class Database {
         ];
 
         $options = array_replace($default_options, $options);
-        // $dsn = "mysql:host=$host;dbname=$db;port=$port;charset=utf8mb4";
-        $dsn = "mysql:unix_socket=/var/run/mysqld/mysqld.sock;dbname=$db;charset=utf8mb4";
+        $dsn = "mysql:host=$host;dbname=$db;port=$port;charset=utf8mb4";
+        //$dsn = "mysql:unix_socket=/var/run/mysqld/mysqld.sock;dbname=$db;charset=utf8mb4";
 
         try {
             $this->pdo = new PDO($dsn, $username, $password, $options);
@@ -40,7 +40,7 @@ class Database {
     }
 
     public function lastInsertId(): int {
-        return $this->pdo->lastInsertId();
+        return intval($this->pdo->lastInsertId());
     }
 
 }
